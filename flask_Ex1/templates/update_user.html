@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Update User</title>
+</head>
+<body>
+<h1>Update User</h1>
+<form method="POST">
+<label>User ID:</label><br>
+<input type="number" name="id" required><br><br>
+<label>New Name:</label><br>
+<input type="text" name="name" required><br><br>
+<label>New Email:</label><br>
+<input type="email" name="email" required><br><br>
+<button type="submit">Update User</button>
+</form>
+<h2>All Users</h2>
+<div id="users"></div>
+<script>
+async function loadUsers() {
+const res = await fetch("/api/users");
+const data = await res.json();
+let html = "<ul>";
+data.forEach(u => {
+html += `<li>${u.id} - ${u.name} ($
+{u.email})</li>`;
+});
+html += "</ul>";
+document.getElementById("users").innerHTML =
+html;
+}
+window.onload = loadUsers;
+</script>
+</body>
+</html>
